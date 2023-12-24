@@ -1,0 +1,72 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    {{title}}
+{% endblock %}
+
+{% block body %}
+
+    <img src="https://covers.openlibrary.org/b/olid/{{olid}}-M.jpg" style="float:left; margin-left: 10px; margin-right: 10px;">
+    <h2>{{title}}</h2>
+    {% if subtitle %}<h3 class="subtitle">{{subtitle}}</h3>{% endif %}
+
+    {% if has_book%}
+    <form action="/api/book/return" method="POST">
+        <input type="number" name="book_id" hidden value="{{id}}">
+        <input type="submit" value="Return Book">
+    </form>
+    {% else %}
+    {% if not request %}
+    <form action="/api/book/request" method="POST">
+        <input type="number" name="book_id" hidden value="{{id}}">
+        <input type="submit" value="Request Book">
+    </form>
+    {% else %}
+    <form action="/api/book/cancel_request" method="POST">
+        <input type="number" name="book_id" hidden value="{{id}}">
+        <input type="submit" value="Cancel Request">
+    </form>
+    {% endif %}
+    {% endif %}
+
+    {% if is_owner %}
+
+    <button id="deleteBook">Delete book</button>
+    {% endif %}
+    <div>
+        {% for para in description %}
+        <p>
+            {{para}}
+        </p>
+        {% endfor %}
+    </div>
+
+    {% if is_owner %}
+    <script>
+
+        var form = document.getElementById("deleteBook");
+
+
+        function reqListener() {
+            window.close();
+        }
+
+        function deleteBook() {
+            if (!confirm("Delete this book?")) {
+                return;
+            }
+
+            // Construct a FormData instance
+            const formData = new FormData();
+            formData.append("book_id", "{{id}}");
+
+            const req = new XMLHttpRequest();
+            req.addEventListener("load", reqListener);
+            req.open("POST", "/api/book/delete");
+            req.send(formData);
+        }
+
+        form.addEventListener("click", deleteBook);
+    </script>
+    {% endif %}
+{% endblock %}

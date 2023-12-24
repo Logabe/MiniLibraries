@@ -1,0 +1,46 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Books
+{% endblock %}
+
+{% block body %}
+<div class="page-center">
+    <h1>Books</h1>
+    <button id="showDialog">Add Book</button>
+
+    <div class="grid-container">
+    {% for book in books %}
+        <div>
+            <img src="https://covers.openlibrary.org/b/isbn/{{book.isbn}}-S.jpg" loading="lazy">
+            <p class="book-title {% if book.borrower_id %}book-taken{% else %}book-available{% endif %}"><a href="/books/{{book.id}}" target="_blank">{{book.title}}</a></p>
+        </div>
+    {% endfor %}
+    </div>
+
+    <dialog id="addBookDialog">
+        <button id="closeDialog"n>Close</button>
+        Add Book
+        <form action="/api/book/add" method="post" class="form" id="addBook">
+            <input type="number" name="isbn" placeholder="ISBN Number">
+            <input type="submit" value="Submit">
+        </form>
+    </dialog>
+
+
+</div>
+
+<script>
+    var button = document.getElementById("showDialog");
+    var dialog = document.getElementById("addBookDialog");
+    var button2 = document.getElementById("closeDialog");
+
+    button.addEventListener("click", () => {
+        dialog.showModal();
+    });
+
+    button2.addEventListener("click", () => {
+        dialog.close();
+    });
+</script>
+{% endblock %}

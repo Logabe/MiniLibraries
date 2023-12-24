@@ -1,0 +1,5 @@
+# Should really move away from CS50's library and towards SQLAlchemy
+cs50
+Flask
+Flask-Session
+requests

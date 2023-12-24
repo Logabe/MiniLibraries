@@ -1,0 +1,88 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Home
+{% endblock %}
+
+{% block style %}
+    .card-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, 200px);
+        gap: 10px;
+        grid-auto-rows: 1fr;
+        overflow: auto; white-space: nowrap;
+    }
+
+    .card-list * {
+        white-space: normal;
+        text-align: center;
+    }
+
+{% endblock %}
+
+{% block body %}
+<div style="padding:20px;">
+    <h2>Hello, {{name}}</h2>
+    <div style="display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    grid-auto-rows: minmax(100px, auto);">
+        <div class="card" style="grid-column: 1; grid-row: 1/3;">
+            <h3 class="card-title">Info</h3>
+
+            <h4>Stats</h4>
+            <ul>
+                <li>Number of books: {{book_count}}</li>
+                <li>Number of users: {{users}}</li>
+                <br>
+                <li>You have {{user_books}} books registered</li>
+                <li>You have {{user_takeouts}} books currently taken out.</li>
+            </ul>
+        </div>
+        <div class="card" style="grid-column: 2/4; grid-row: 1;">
+            <h3 class="card-title">Books Requested</h3>
+            <div class="card-list">
+                {% for book in requested_books %}
+                <div id="{{book.id}}">
+                    <img src="https://covers.openlibrary.org/b/isbn/{{book.isbn}}-S.jpg" loading="lazy" class="center">
+                    <p class="book-title book-requested"><a href="/books/{{book.id}}" target="_blank"><strong>{{book.username}}</strong> requested <i>{{book.title}}</i></a></p>
+                    <button onclick="fulfillRequest({{book.id}})">Book received?</button>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="card" style="grid-column: 2/4; grid-row: 2;">
+            <h3 class="card-title">Books you've taken out</h3>
+
+            <div class="card-list">
+            {% for book in user_requests %}
+                <div>
+                    <img src="https://covers.openlibrary.org/b/isbn/{{book.isbn}}-S.jpg" loading="lazy">
+                    <p class="book-title book-requested"><a href="/books/{{book.id}}" target="_blank">{{book.title}}</a></p>
+                </div>
+            {% endfor %}
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    function fulfillRequest(book_id) {
+        // Construct a FormData instance
+        const formData = new FormData();
+        formData.append("book_id", book_id);
+
+        const req = new XMLHttpRequest();
+        req.open("POST", "/api/book/fulfill_request");
+        req.onload = function() {
+            if (req.status === 200) {
+                var item = document.getElementById(book_id);
+                item.remove()
+            }
+        }
+        req.send(formData);
+    }
+</script>
+
+{% endblock %}
