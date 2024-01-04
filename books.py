@@ -1,11 +1,11 @@
-from flask import Blueprint, redirect, render_template, request, session
+from flask import Blueprint, redirect, render_template, session
 
 from app import db
 from helpers import login_required
 import requests
 
-books = Blueprint('books', __name__, url_prefix='/books')
 
+books = Blueprint('books', __name__, url_prefix='/books')
 
 @books.route("/")
 @login_required

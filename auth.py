@@ -1,10 +1,7 @@
-from cs50 import SQL
-from flask import Blueprint, render_template, redirect, request, session, url_for, make_response
-from flask_session import Session
-import requests
+from flask import Blueprint, render_template, redirect, request, session, url_for
 from werkzeug.security import check_password_hash, generate_password_hash
 
-from app import app, db
+from app import  db
 
 auth = Blueprint('auth', __name__, url_prefix='/auth')
 

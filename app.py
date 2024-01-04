@@ -1,11 +1,6 @@
-from __future__ import print_function
-import sys
-
 from cs50 import SQL
-from flask import Flask, render_template, redirect, request, session, url_for, make_response
+from flask import Flask, render_template, session
 from flask_session import Session
-import requests
-from werkzeug.security import check_password_hash, generate_password_hash
 
 from helpers import login_required
 
