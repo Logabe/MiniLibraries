@@ -7,7 +7,7 @@ import requests
 from app import db
 from helpers import login_required
 
-api = Blueprint('api', __name__, 'api/book')
+api = Blueprint('api', __name__, url_prefix='/api/book')
 
 @api.route("/add", methods=["POST"])
 @login_required
