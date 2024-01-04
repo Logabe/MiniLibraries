@@ -1,6 +1,14 @@
-from .app import app
+from cs50 import SQL
+from flask import Blueprint, render_template, redirect, request, session, url_for, make_response
+from flask_session import Session
+import requests
+from werkzeug.security import check_password_hash, generate_password_hash
 
-@app.route("/register", methods=["GET", "POST"])
+from app import app, db
+
+auth = Blueprint('auth', __name__, url_prefix='/auth')
+
+@auth.route("/register", methods=["GET", "POST"])
 def register():
     if request.method == "POST":
         # Return a version of the page with an error message
@@ -35,7 +43,7 @@ def register():
     else:
         return render_template("register.html")
 
-@app.route("/login", methods=["GET", "POST"])
+@auth.route("/login", methods=["GET", "POST"])
 def login():
     """Log user in"""
 
@@ -49,7 +57,7 @@ def login():
         def error(error):
             nonlocal username
             nonlocal password
-            return render_template("login.html", username=username, password=password, error=error)
+            return render_template(url_for('auth.login'), username=username, password=password, error=error)
 
         username = request.form.get("username")
         password = request.form.get("password")
@@ -82,7 +90,7 @@ def login():
     else:
         return render_template("login.html")
 
-@app.route("/logout")
+@auth.route("/logout")
 def logout():
     """Log user out"""
 
