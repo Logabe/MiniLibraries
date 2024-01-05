@@ -27,8 +27,7 @@ def book_details(book_id):
 
     olid = details["olid"]
 
-    r = requests.get(f'http://openlibrary.org/books/{olid}.json')
-    book = r.json()
+    book = requests.get(f'http://openlibrary.org/books/{olid}.json').json()
     work_id = book["works"][0]["key"]
 
     work = requests.get(f'http://openlibrary.org{work_id}.json').json()
