@@ -9,4 +9,4 @@ This was originally my Final Project for [CS50x 2023](https://cs50.harvard.edu/x
 3. Run `pip install -r requirements.txt` to install dependencies
 4. Run the following commands
     1. **For testing:** Run `flask run` to start the app.
-    2. **For production:** Run `waitress-serve --host 127.0.0.1 app:app`. By default waitress runs on port `8080`. To change this, add `--port=2000` (or similiar) to your command.
+    2. **For production:** Run `waitress-serve --listen=*:8000 app:app` to listen on port 8000. See the [Waitress Docs](https://docs.pylonsproject.org/projects/waitress/en/stable/runner.html) for more info.
