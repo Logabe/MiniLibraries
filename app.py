@@ -1,8 +1,6 @@
 from cs50 import SQL
-from flask import Flask, render_template, session
+from flask import Flask
 from flask_session import Session
-
-from helpers import login_required
 
 
 app = Flask(__name__)
