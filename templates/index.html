@@ -45,7 +45,7 @@
                 {% for book in requested_books %}
                 <div id="{{book.id}}">
                     <img src="https://covers.openlibrary.org/b/isbn/{{book.isbn}}-S.jpg" loading="lazy" class="center">
-                    <p class="book-title book-requested"><a href="{{url_for('books.book_details', book_id={{book.id}})}}" target="_blank"><strong>{{book.username}}</strong> requested <i>{{book.title}}</i></a></p>
+                    <p class="book-title book-requested"><a href="{{url_for('books.book_details', book_id=book.id)}}" target="_blank"><strong>{{book.username}}</strong> requested <i>{{book.title}}</i></a></p>
                     <button onclick="fulfillRequest({{book.id}})">Book received?</button>
                 </div>
                 {% endfor %}
@@ -58,7 +58,7 @@
             {% for book in user_requests %}
                 <div>
                     <img src="https://covers.openlibrary.org/b/isbn/{{book.isbn}}-S.jpg" loading="lazy">
-                    <p class="book-title book-requested"><a href="{{url_for('books.book_details', book_id={{book.id}})}}" target="_blank">{{book.title}}</a></p>
+                    <p class="book-title book-requested"><a href="{{url_for('books.book_details', book_id=book.id)}}" target="_blank">{{book.title}}</a></p>
                 </div>
             {% endfor %}
             </div>
