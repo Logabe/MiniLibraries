@@ -27,7 +27,7 @@ def add_book():
 
     db.execute("INSERT INTO books (owner_id, olid, isbn, title) VALUES (?, ?, ?, ?)", owner_id, olid, isbn, title )
 
-    return redirect(url_for("books"))
+    return redirect(url_for("books.book_listing"))
 
 @api.route("/delete", methods=["POST"])
 @login_required
@@ -39,7 +39,7 @@ def delete_book():
         db.execute("DELETE FROM books WHERE id = ? AND owner_id = ?", book_id, owner_id)
         db.execute("DELETE FROM requests WHERE book_id = ?", book_id)
 
-    return redirect(url_for("books"))
+    return redirect(url_for("books.book_listing"))
 
 @api.route("/request", methods=["POST"])
 @login_required
@@ -58,7 +58,7 @@ def request_book():
 def cancel_request():
     book_id = request.form.get("book_id")
     db.execute("DELETE FROM requests WHERE user_id = ? AND book_id = ?", session["user_id"], book_id)
-    return redirect(url_for("book_details", book_id=book_id))
+    return redirect(url_for("books.book_details", book_id=book_id))
 
 @api.route("/fulfill_request", methods=["POST"])
 @login_required
