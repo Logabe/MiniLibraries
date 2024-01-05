@@ -7,4 +7,6 @@ This was originally my Final Project for [CS50x 2023](https://cs50.harvard.edu/x
 1. Install [Python3](https://wiki.python.org/moin/BeginnersGuide/Download) and [Pip](https://pip.pypa.io/en/stable/installation/)
 2. Download the source code for this project.
 3. Run `pip install -r requirements.txt` to install dependencies
-4. Run `flask run` to start the app.
+4. Run the following commands
+    1. **For testing:** Run `flask run` to start the app.
+    2. **For production:** Run `waitress-serve --listen=*:8000 app:app` to listen on port 8000. See the [Waitress Docs](https://docs.pylonsproject.org/projects/waitress/en/stable/runner.html) for more info.

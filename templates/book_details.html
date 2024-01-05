@@ -11,18 +11,18 @@
     {% if subtitle %}<h3 class="subtitle">{{subtitle}}</h3>{% endif %}
 
     {% if has_book%}
-    <form action="/api/book/return" method="POST">
+    <form action="{{url_for('api.return_book')}}" method="POST">
         <input type="number" name="book_id" hidden value="{{id}}">
         <input type="submit" value="Return Book">
     </form>
     {% else %}
     {% if not request %}
-    <form action="/api/book/request" method="POST">
+    <form action="{{url_for('api.request_book')}}" method="POST">
         <input type="number" name="book_id" hidden value="{{id}}">
         <input type="submit" value="Request Book">
     </form>
     {% else %}
-    <form action="/api/book/cancel_request" method="POST">
+    <form action="{{url_for('api.cancel_request')}}" method="POST">
         <input type="number" name="book_id" hidden value="{{id}}">
         <input type="submit" value="Cancel Request">
     </form>
@@ -62,7 +62,7 @@
 
             const req = new XMLHttpRequest();
             req.addEventListener("load", reqListener);
-            req.open("POST", "/api/book/delete");
+            req.open("POST", "{{url_for('api.delete_book')}}");
             req.send(formData);
         }
 

@@ -17,10 +17,10 @@
 
             <div id="account-management">
                 {% if session["user_id"] %}
-                <a href="/logout">Log out</a>
+                <a href="{{url_for('auth.logout')}}">Log out</a>
                 {% else %}
-                <a href="/register">Register</a>
-                <a href="/login">Log in</a>
+                <a href="{{url_for('auth.register')}}">Register</a>
+                <a href="{{url_for('auth.login')}}">Log in</a>
                 {% endif %}
             </div>
         </header>

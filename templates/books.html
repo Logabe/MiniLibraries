@@ -13,7 +13,7 @@
     {% for book in books %}
         <div>
             <img src="https://covers.openlibrary.org/b/isbn/{{book.isbn}}-S.jpg" loading="lazy">
-            <p class="book-title {% if book.borrower_id %}book-taken{% else %}book-available{% endif %}"><a href="/books/{{book.id}}" target="_blank">{{book.title}}</a></p>
+            <p class="book-title {% if book.borrower_id %}book-taken{% else %}book-available{% endif %}"><a href="{{url_for('books.book_details', book_id={{book.id}})}}" target="_blank">{{book.title}}</a></p>
         </div>
     {% endfor %}
     </div>
@@ -21,7 +21,7 @@
     <dialog id="addBookDialog">
         <button id="closeDialog"n>Close</button>
         Add Book
-        <form action="/api/book/add" method="post" class="form" id="addBook">
+        <form action="{{api.add_book}}" method="post" class="form" id="addBook">
             <input type="number" name="isbn" placeholder="ISBN Number">
             <input type="submit" value="Submit">
         </form>
