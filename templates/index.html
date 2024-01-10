@@ -36,7 +36,8 @@
                 <li>Number of users: {{users}}</li>
                 <br>
                 <li>You have {{user_books}} books registered</li>
-                <li>You have {{user_takeouts}} books currently taken out.</li>
+                <li>You have {{user_takeouts | length}} books currently taken out.</li>
+                <li>You are waiting on {{user_requests}} books.</li>
             </ul>
         </div>
         <div class="card" style="grid-column: 2/4; grid-row: 1;">
@@ -55,7 +56,7 @@
             <h3 class="card-title">Books you've taken out</h3>
 
             <div class="card-list">
-            {% for book in user_requests %}
+            {% for book in user_takeouts %}
                 <div>
                     <img src="https://covers.openlibrary.org/b/isbn/{{book.isbn}}-S.jpg" loading="lazy">
                     <p class="book-title book-requested"><a href="{{url_for('books.book_details', book_id=book.id)}}" target="_blank">{{book.title}}</a></p>
