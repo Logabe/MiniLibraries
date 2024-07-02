@@ -1,3 +1,5 @@
+NOTE: This repository has been archived as I am currently working on a successor written with Django that uses a more centralised model. You are welcome to fork this repository if you want to work with it...
+
 # ![Mini Libraries Icon](/static/LibrariesIcon.svg) Mini Libraries
 Mini Libraries (better title WIP) is a web app for sharing books on a small scale (think friends, family). It acts as a way to keep track of who is borrowing what, and as a way to check out other member's personal book collections.
 
